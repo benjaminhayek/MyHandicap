@@ -3,7 +3,7 @@ import { StyleSheet, Platform, Image, Text, View } from 'react-native'
 import { SwitchNavigator } from 'react-navigation'
 // import the different screens
 import Loading from './Loading'
-import SignUp from './SignUp'
+import SignUp from './Signup'
 import Login from './Login'
 import Main from './Main'
 // create our app's navigation stack
