@@ -1,36 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to MyHandicap!</Text>
-      </View>
-    );
+import React from 'react'
+import { StyleSheet, Platform, Image, Text, View } from 'react-native'
+import { SwitchNavigator } from 'react-navigation'
+// import the different screens
+import Loading from './Loading'
+import SignUp from './SignUp'
+import Login from './Login'
+import Main from './Main'
+// create our app's navigation stack
+const App = SwitchNavigator(
+  {
+    Loading,
+    SignUp,
+    Login,
+    Main
+  },
+  {
+    initialRouteName: 'Loading'
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    flex: 1,
-    fontSize: 20,
-    textAlign: 'center',
-    marginTop: 30,
-  },
-});
+)
+export default App
