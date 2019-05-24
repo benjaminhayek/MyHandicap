@@ -9,6 +9,7 @@ return (
       <View style={styles.container}>
         <Text>
           Hi {currentUser && currentUser.email}!
+          Welcome to MyHandicap!!
         </Text>
       </View>
     )
