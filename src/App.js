@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
 import { Container, Item, Form, Input, Button, Label } from "native-base";
 import * as firebase from "firebase";
 const AccessToken = "Acess Token";
-import firebaseConfig from './config'
+import {firebaseConfig} from './config'
 import { Logo } from './images';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -36,6 +36,13 @@ export default class App extends React.Component {
       console.log("Something went wrong");
     }
   }
+  SignUp = (email, password) => {
+    try {
+      firebase.auth().createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      alert(firebaseConfig);
+    }
+  };
   async SignIn(email, password) {
     this.setState({ showProgress: true });
     try {
