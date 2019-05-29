@@ -45,7 +45,6 @@ export default class Main extends React.Component {
           <Item floatingLabel>
             <Label>Course Rating</Label>
             <Input
-              secureTextEntry={true}
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={courseRating => this.setState({ courseRating })}
@@ -54,7 +53,6 @@ export default class Main extends React.Component {
           <Item floatingLabel>
             <Label>Slope</Label>
             <Input
-              secureTextEntry={true}
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={slope => this.setState({ slope })}
@@ -63,7 +61,6 @@ export default class Main extends React.Component {
           <Item floatingLabel>
             <Label>Score</Label>
             <Input
-              secureTextEntry={true}
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={score => this.setState({ score })}
