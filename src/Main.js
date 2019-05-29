@@ -8,9 +8,9 @@ export default class Main extends React.Component {
   state = { 
       currentUser: null,
       course: '',
-      score: '',
-      courseRating: '',
-      slope: '',
+      score: 0,
+      courseRating: 0,
+      slope: 0,
       divisor: 113 
     }
 
@@ -20,8 +20,11 @@ export default class Main extends React.Component {
     this.setState({ currentUser })
   }
 
-  postScore = (currentUser, course, score, courseRating, slope, divisor) => {
-    alert(currentUser, course, score, courseRating, slope, divisor)
+  postScore = (course, score, courseRating, slope, divisor) => {
+    const newScore = (score - courseRating) * divisor/slope
+    const roundedScore = Math.round(newScore * 100) / 100
+    const positiveScore = Math.abs(roundedScore)
+    alert(positiveScore)
   };
 
   render() {
@@ -43,6 +46,14 @@ export default class Main extends React.Component {
             />
           </Item>
           <Item floatingLabel>
+            <Label>Score</Label>
+            <Input
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={score => this.setState({ score })}
+            />
+          </Item>
+          <Item floatingLabel>
             <Label>Course Rating</Label>
             <Input
               autoCapitalize="none"
@@ -58,21 +69,13 @@ export default class Main extends React.Component {
               onChangeText={slope => this.setState({ slope })}
             />
           </Item>
-          <Item floatingLabel>
-            <Label>Score</Label>
-            <Input
-              autoCapitalize="none"
-              autoCorrect={false}
-              onChangeText={score => this.setState({ score })}
-            />
-          </Item>
           <Button
             full
             rounded
             success
             style={{ marginTop: 20 }}
-            onPress={() => this.postScore(this.state.email, this.state.password)}
-          >
+            onPress={() => this.postScore(this.state.course, this.state.courseRating, this.state.score, this.state.slope, this.state.divisor)}
+            >
             <Text>Post Score</Text>
           </Button>
         </Form>
