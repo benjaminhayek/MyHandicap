@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
 import { Container, Item, Form, Input, Button, Label } from "native-base";
 import * as firebase from "firebase";
-const AccessToken = "Acess Token";
 import {firebaseConfig} from './config'
 import { Logo } from './images';
 // Initialize Firebase
@@ -14,27 +13,7 @@ export default class App extends React.Component {
     this.state = {
       email: "",
       password: "",
-      accessToken: ""
     };
-  }
-  componentDidMount() {
-    console.log(this.state.accessToken);
-    this.getToken();
-  }
-  async storeToken(actk) {
-    try {
-      await AsyncStorage.setItem(AccessToken, actk);
-    } catch (error) {
-      console.log("Something went wrong", error);
-    }
-  }
-  async getToken(actk) {
-    try {
-      let token = await AsyncStorage.getItem(AccessToken);
-      console.log(token);
-    } catch (error) {
-      console.log("Something went wrong");
-    }
   }
   SignUp = (email, password) => {
     try {
