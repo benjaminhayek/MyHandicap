@@ -9,7 +9,6 @@ firebase.initializeApp(firebaseConfig);
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       email: "",
       password: "",
@@ -18,6 +17,7 @@ export default class Login extends React.Component {
   SignUp = (email, password) => {
     try {
       firebase.auth().createUserWithEmailAndPassword(email, password);
+      this.props.navigation.navigate('Main')
     } catch (error) {
       alert(firebaseConfig);
     }
@@ -26,7 +26,7 @@ export default class Login extends React.Component {
     try {
       firebase.auth().signInWithEmailAndPassword(email, password);
       firebase.auth().onAuthStateChanged(user => {
-         alert(user.email);
+        this.props.navigation.navigate('Main')
       })
 } catch (error) {
       console.log(error.toString(error));
