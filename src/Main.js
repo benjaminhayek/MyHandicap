@@ -1,25 +1,29 @@
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View } from 'react-native'
-import firebase from 'react-native-firebase'
+import firebase from 'firebase'
 
 export default class Main extends React.Component {
   state = { currentUser: null }
+
   componentDidMount() {
     const { currentUser } = firebase.auth()
+
     this.setState({ currentUser })
-}
-render() {
+  }
+
+  render() {
     const { currentUser } = this.state
-return (
+
+    return (
       <View style={styles.container}>
         <Text>
-          Hi {currentUser && currentUser.email}!
-          Welcome to MyHandicap!!
+          Hi {currentUser && currentUser.email}! Welcome to MyHandicap!
         </Text>
       </View>
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,60 +1,96 @@
-import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import firebase from 'react-native-firebase'
-
+import React from "react";
+import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
+import { Container, Item, Form, Input, Button, Label } from "native-base";
+import * as firebase from "firebase";
+import {firebaseConfig} from './config'
+import { Logo } from './images';
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 export default class Login extends React.Component {
-  state = { email: '', password: '', errorMessage: null }
-  handleLogin = () => {
-    const { email, pasword } = this.state
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Main'))
-      .catch(error => this.setState({ errorMessage: error.message }))
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+    };
   }
+  SignUp = (email, password) => {
+    try {
+      firebase.auth().createUserWithEmailAndPassword(email, password);
+      this.props.navigation.navigate('Main')
+    } catch (error) {
+      alert(firebaseConfig);
+    }
+  };
+  SignIn = (email, password) => {
+    try {
+      firebase.auth().signInWithEmailAndPassword(email, password);
+      firebase.auth().onAuthStateChanged(user => {
+        this.props.navigation.navigate('Main')
+      })
+} catch (error) {
+      console.log(error.toString(error));
+    }
+  };
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Login</Text>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Login" onPress={this.handleLogin} />
-        <Button
-          title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
-        />
-      </View>
-    )
+      <Container style={styles.container}>
+        <Image source={ Logo } style={{width: 250, height: 250, marginLeft: 50}}/>
+        <Text style={styles.header}>
+          Welcome to MyHandicap!
+        </Text>
+        <Form>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={email => this.setState({ email })}
+            />
+          </Item>
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input
+              secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={password => this.setState({ password })}
+            />
+          </Item>
+          <Button
+            full
+            rounded
+            style={{ marginTop: 20 }}
+            onPress={() => this.SignIn(this.state.email, this.state.password)}
+          >
+            <Text>SignIn</Text>
+          </Button>
+          <Button
+            full
+            rounded
+            success
+            style={{ marginTop: 20 }}
+            onPress={() => this.SignUp(this.state.email, this.state.password)}
+          >
+            <Text>Signup</Text>
+          </Button>
+        </Form>
+      </Container>
+    );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    justifyContent: "center",
+    padding: 10
   },
-  textInput: {
-    height: 40,
-    width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8
+  header: {
+    textAlign: 'center',
+    fontSize: 25,
+    color: 'green'
   }
-})
+});
