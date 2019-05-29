@@ -1,9 +1,8 @@
-import React from 'react'
-import { StyleSheet, Platform, Image, Text, View } from 'react-native'
-import { createSwitchNavigator, createAppContainer } from 'react-navigation'
-import Login from './Login'
-
-// create our app’s navigation stack
+import React from 'react';
+import { StyleSheet, Platform, Image, Text, View } from 'react-native';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import Login from './Login';
+import Main from './Main';
 
 export default createAppContainer(createSwitchNavigator(
   {
