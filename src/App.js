@@ -7,6 +7,7 @@ import Main from './Main';
 export default createAppContainer(createSwitchNavigator(
   {
     Login,
+    Main,
   },
   {
     initialRouteName: 'Login'
