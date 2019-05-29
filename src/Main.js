@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View, Form, Button, Item, Label, Input } from 'react-native'
+import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
+import { Container, Item, Form, Input, Button, Label } from "native-base";
 import firebase from 'firebase'
 import { Logo } from './images';
 
