@@ -43,39 +43,16 @@ export default class App extends React.Component {
       alert(firebaseConfig);
     }
   };
-  async SignIn(email, password) {
-    this.setState({ showProgress: true });
+  SignIn = (email, password) => {
     try {
-      let response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: this.state.email,
-          password: this.state.password,
-          strategy: "local"
-        })
-      });
-      let res = await response.text();
-      if (response.status >= 200 && response.status < 300) {
-        //Handle success
-        this.storeToken(res);
-        // console.log(this.state.accessToken);
-        //On success we will store the access_token in the AsyncStorage
-        // this.storeToken(accessToken);
-        // this.redirect('home');
-      } else {
-        //Handle error
-        let error = res;
-        throw error;
-      }
-    } catch (error) {
-      this.setState({ error: error });
-      console.log("error " + error);
-      this.setState({ showProgress: false });
+      firebase.auth().signInWithEmailAndPassword(email, password);
+      firebase.auth().onAuthStateChanged(user => {
+         alert(user.email);
+      })
+} catch (error) {
+      console.log(error.toString(error));
     }
-  }
+  };
   render() {
     return (
       <Container style={styles.container}>
