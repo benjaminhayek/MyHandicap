@@ -50,7 +50,15 @@ export default class Main extends React.Component {
               onChangeText={courseRating => this.setState({ courseRating })}
             />
           </Item>
-            <Text>SignIn</Text>
+          <Item floatingLabel>
+            <Label>Slope</Label>
+            <Input
+              secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={slope => this.setState({ slope })}
+            />
+          </Item>
           <Button
             full
             rounded
