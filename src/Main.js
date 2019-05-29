@@ -59,6 +59,15 @@ export default class Main extends React.Component {
               onChangeText={slope => this.setState({ slope })}
             />
           </Item>
+          <Item floatingLabel>
+            <Label>Score</Label>
+            <Input
+              secureTextEntry={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={score => this.setState({ score })}
+            />
+          </Item>
           <Button
             full
             rounded
