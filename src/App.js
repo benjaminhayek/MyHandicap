@@ -71,7 +71,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Text>
+        <Text style={styles.header}>
           Welcome to MyHandicap!
         </Text>
         <Form>
@@ -122,5 +122,10 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "center",
     padding: 10
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 25,
+    color: 'green'
   }
 });
