@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View, AsyncStorage } from "react-native";
+import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
 import { Container, Item, Form, Input, Button, Label } from "native-base";
 import * as firebase from "firebase";
 const AccessToken = "Acess Token";
 import firebaseConfig from './config'
+import { Logo } from './images';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 export default class App extends React.Component {
@@ -71,6 +72,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
+        <Image source={ Logo } style={{width: 250, height: 250, marginLeft: 50}}/>
         <Text style={styles.header}>
           Welcome to MyHandicap!
         </Text>
