@@ -5,6 +5,10 @@ import firebase from 'firebase'
 import { Logo } from './images';
 
 export default class Main extends React.Component {
+    constructor(props) {
+        super(props);
+        this.postScore = this.postScore.bind(this);
+    }
   state = { 
       currentUser: null,
       course: '',
@@ -24,15 +28,30 @@ export default class Main extends React.Component {
     const newScore = (score - courseRating) * divisor/slope
     const roundedScore = Math.round(newScore * 100) / 100
     const positiveScore = Math.abs(roundedScore)
-    alert(positiveScore)
+    return positiveScore
   };
 
+  navigateToScores = (course, score, courseRating, slope, divisor) => {
+    this.props.navigation.navigate('Scores', {
+        handicap: this.postScore(course, score, courseRating, slope, divisor),
+        course: course,
+        score: courseRating
+    });
+  }
+
   render() {
-    const { currentUser, course, score, courseRating, slope, divisor } = this.state
+    const { currentUser } = this.state
 
     return (
       <View style={styles.container}>
-        <Image source={ Logo } style={{width: 250, height: 250, }}/>
+          <Button
+            rounded
+            style={{ marginTop: 10, backgroundColor: 'green', padding: 5 }}
+            onPress={() => firebase.auth().signOut()} 
+            >
+            <Text>Sign Out</Text>
+          </Button>
+        <Image source={ Logo } style={{width: 250, height: 250, marginLeft: 50}}/>
         <Text>
           Hi {currentUser && currentUser.email}! Welcome to MyHandicap! Please enter your information below
         </Text>
@@ -74,7 +93,7 @@ export default class Main extends React.Component {
             rounded
             success
             style={{ marginTop: 20 }}
-            onPress={() => this.postScore(this.state.course, this.state.courseRating, this.state.score, this.state.slope, this.state.divisor)}
+            onPress={() => this.navigateToScores(this.state.course, this.state.courseRating, this.state.score, this.state.slope, this.state.divisor)}
             >
             <Text>Post Score</Text>
           </Button>
