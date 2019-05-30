@@ -32,7 +32,14 @@ export default class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Image source={ Logo } style={{width: 250, height: 250, }}/>
+          <Button
+            rounded
+            style={{ marginTop: 10, backgroundColor: 'green', padding: 5 }}
+            onPress={() => firebase.auth().signOut()} 
+            >
+            <Text>Sign Out</Text>
+          </Button>
+        <Image source={ Logo } style={{width: 250, height: 250, marginLeft: 50}}/>
         <Text>
           Hi {currentUser && currentUser.email}! Welcome to MyHandicap! Please enter your information below
         </Text>
