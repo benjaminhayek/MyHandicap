@@ -12,7 +12,19 @@ export default class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
+      currentUser: null,
     };
+  }
+
+  componentDidMount() {
+    const { currentUser } = firebase.auth()
+    firebase.auth().onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+            this.props.navigation.navigate('Main')
+        } else {
+            this.props.navigation.navigate('Login')
+        }
+    })
   }
   SignUp = (email, password) => {
     try {
