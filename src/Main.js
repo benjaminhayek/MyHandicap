@@ -5,6 +5,10 @@ import firebase from 'firebase'
 import { Logo } from './images';
 
 export default class Main extends React.Component {
+    constructor(props) {
+        super(props);
+        this.postScore = this.postScore.bind(this);
+    }
   state = { 
       currentUser: null,
       course: '',
@@ -24,12 +28,16 @@ export default class Main extends React.Component {
     const newScore = (score - courseRating) * divisor/slope
     const roundedScore = Math.round(newScore * 100) / 100
     const positiveScore = Math.abs(roundedScore)
-    this.props.navigation.navigate('Score', {
-        score: score,
-        course: course,
-        handicap: positiveScore
-    });
+    return positiveScore
   };
+
+  navigateToScores = (course, score, courseRating, slope, divisor) => {
+    this.props.navigation.navigate('Scores', {
+        handicap: this.postScore(course, score, courseRating, slope, divisor),
+        course: course,
+        score: score
+    });
+  }
 
   render() {
     const { currentUser } = this.state
@@ -85,7 +93,7 @@ export default class Main extends React.Component {
             rounded
             success
             style={{ marginTop: 20 }}
-            onPress={() => this.postScore(this.state.course, this.state.courseRating, this.state.score, this.state.slope, this.state.divisor)}
+            onPress={() => this.navigateToScores(this.state.course, this.state.courseRating, this.state.score, this.state.slope, this.state.divisor)}
             >
             <Text>Post Score</Text>
           </Button>
