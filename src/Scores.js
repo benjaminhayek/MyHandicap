@@ -13,7 +13,7 @@ export default class Scores extends React.Component {
     const handicap = navigation.getParam('handicap', 'no handicap');
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Details Screen</Text>
+          <Text>Your Handicaps</Text>
           <Text>course: {JSON.stringify(course)}</Text>
           <Text>score: {JSON.stringify(score)}</Text>
           <Text>handicap: {JSON.stringify(handicap)}</Text>
