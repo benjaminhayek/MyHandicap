@@ -35,7 +35,7 @@ export default class Main extends React.Component {
     this.props.navigation.navigate('Scores', {
         handicap: this.postScore(course, score, courseRating, slope, divisor),
         course: course,
-        score: score
+        score: courseRating
     });
   }
 
