@@ -24,11 +24,15 @@ export default class Main extends React.Component {
     const newScore = (score - courseRating) * divisor/slope
     const roundedScore = Math.round(newScore * 100) / 100
     const positiveScore = Math.abs(roundedScore)
-    alert(positiveScore)
+    this.props.navigation.navigate('Score', {
+        score: score,
+        course: course,
+        handicap: positiveScore
+    });
   };
 
   render() {
-    const { currentUser, course, score, courseRating, slope, divisor } = this.state
+    const { currentUser } = this.state
 
     return (
       <View style={styles.container}>
