@@ -44,8 +44,9 @@ writeUserData = (userId, email, score, course, handicap) => {
   };
 
   navigateToScores = (course, score, courseRating, slope, divisor) => {
+    let handicap = this.postScore(course, score, courseRating, slope, divisor)
     this.props.navigation.navigate('Scores', {
-        handicap: this.postScore(course, score, courseRating, slope, divisor),
+        handicap: handicap,
         course: course,
         score: courseRating
     });
