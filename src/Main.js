@@ -24,6 +24,18 @@ export default class Main extends React.Component {
     this.setState({ currentUser })
   }
 
+database = firebase.database();
+// save the user's profile into Firebase so we can list users,
+// use them in Security and Firebase Rules, and show profiles
+writeUserData = (userId, email, score, course, handicap) => {
+  firebase.database().ref('users/' + userId).set({
+    email: email,
+    score: score,
+    course: course,
+    handicap: handicap
+  });
+}
+
   postScore = (course, score, courseRating, slope, divisor) => {
     const newScore = (score - courseRating) * divisor/slope
     const roundedScore = Math.round(newScore * 100) / 100
@@ -32,8 +44,9 @@ export default class Main extends React.Component {
   };
 
   navigateToScores = (course, score, courseRating, slope, divisor) => {
+    let handicap = this.postScore(course, score, courseRating, slope, divisor)
     this.props.navigation.navigate('Scores', {
-        handicap: this.postScore(course, score, courseRating, slope, divisor),
+        handicap: handicap,
         course: course,
         score: courseRating
     });
