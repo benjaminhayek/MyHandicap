@@ -24,17 +24,20 @@ export default class Main extends React.Component {
     this.setState({ currentUser })
   }
 
-database = firebase.database();
-// save the user's profile into Firebase so we can list users,
-// use them in Security and Firebase Rules, and show profiles
-writeUserData = (userId, email, score, course, handicap) => {
-  firebase.database().ref('users/' + userId).set({
-    email: email,
-    score: score,
-    course: course,
-    handicap: handicap
-  });
-}
+  uploadScore = (course, score, handicap) => {
+    var database = firebase.database();
+    firebase.database().ref('users/' + userId).set({
+      course: course,
+      score: score,
+      handicap: handicap,
+    }, function(error) {
+      if (error) {
+        alert(error.message)
+      } else {
+        alert('score updated')
+      }
+    });
+  }
 
   postScore = (course, score, courseRating, slope, divisor) => {
     const newScore = (score - courseRating) * divisor/slope
@@ -45,6 +48,7 @@ writeUserData = (userId, email, score, course, handicap) => {
 
   navigateToScores = (course, score, courseRating, slope, divisor) => {
     let handicap = this.postScore(course, score, courseRating, slope, divisor)
+    this.uploadScore(handicap)
     this.props.navigation.navigate('Scores', {
         handicap: handicap,
         course: course,
