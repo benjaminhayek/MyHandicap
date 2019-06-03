@@ -116,6 +116,15 @@ export default class Main extends React.Component {
             >
             <Text>Post Score</Text>
           </Button>
+          <Button
+            full
+            rounded
+            success
+            style={{ marginTop: 20 }}
+            onPress={() => this.props.navigation.navigate('Scores')}
+            >
+            <Text>Go To Scores</Text>
+          </Button>
         </Form>
       </View>
     )

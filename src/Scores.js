@@ -5,6 +5,31 @@ import firebase from 'firebase'
 import { Logo } from './images';
 
 export default class Scores extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  state = { 
+    currentUser: null,
+    courses: [],
+    scores: [],
+    handicaps: [],
+  }
+
+  componentDidMount() {
+    const { currentUser } = firebase.auth()
+
+    this.getUserData()
+  }
+
+  getUserData = () => {
+    var userId = firebase.auth().currentUser.uid;
+    return firebase.database().ref('/posts/').orderByChild('uid').equalTo(userId).once('value').then(function(snapshot) {
+    var courses = (snapshot.val() && snapshot.val().course) || 'Anonymous';
+    var scores = (snapshot.val() && snapshot.val().score) || 'Anonymous';
+    var handicaps = (snapshot.val() && snapshot.val().handicap) || 'Anonymous';
+    alert(courses[0])
+  });
+  }
 
     render() {
     const { navigation } = this.props;
@@ -14,9 +39,9 @@ export default class Scores extends React.Component {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Your Handicaps</Text>
-          <Text>course: {JSON.stringify(course)}</Text>
-          <Text>score: {JSON.stringify(score)}</Text>
-          <Text>handicap: {JSON.stringify(handicap)}</Text>
+          <Text>course: {this.state.courses}</Text>
+          <Text>score: {this.state.scores}</Text>
+          <Text>handicap: {this.state.handicaps}</Text>
           <Button
             title="Go to Home"
             onPress={() => this.props.navigation.navigate('Home')}
