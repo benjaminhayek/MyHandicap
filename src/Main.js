@@ -24,17 +24,22 @@ export default class Main extends React.Component {
     this.setState({ currentUser })
   }
 
-database = firebase.database();
-// save the user's profile into Firebase so we can list users,
-// use them in Security and Firebase Rules, and show profiles
-writeUserData = (userId, email, score, course, handicap) => {
-  firebase.database().ref('users/' + userId).set({
-    email: email,
-    score: score,
-    course: course,
-    handicap: handicap
-  });
-}
+  uploadScore = (course, courseRating, handicap) => {
+    var postData = {
+      course: course,
+      score: courseRating,
+      handicap: handicap,
+    };
+    var uid = firebase.auth().currentUser.uid
+    
+    var newPostKey = firebase.database().ref().child('posts').push().key;
+  
+    var updates = {};
+    updates['/posts/' + newPostKey] = postData;
+    updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+  
+    return firebase.database().ref().update(updates);
+  }
 
   postScore = (course, score, courseRating, slope, divisor) => {
     const newScore = (score - courseRating) * divisor/slope
@@ -45,6 +50,7 @@ writeUserData = (userId, email, score, course, handicap) => {
 
   navigateToScores = (course, score, courseRating, slope, divisor) => {
     let handicap = this.postScore(course, score, courseRating, slope, divisor)
+    this.uploadScore(course, courseRating, handicap)
     this.props.navigation.navigate('Scores', {
         handicap: handicap,
         course: course,
@@ -109,6 +115,15 @@ writeUserData = (userId, email, score, course, handicap) => {
             onPress={() => this.navigateToScores(this.state.course, this.state.courseRating, this.state.score, this.state.slope, this.state.divisor)}
             >
             <Text>Post Score</Text>
+          </Button>
+          <Button
+            full
+            rounded
+            success
+            style={{ marginTop: 20 }}
+            onPress={() => this.props.navigation.navigate('Scores')}
+            >
+            <Text>Go To Scores</Text>
           </Button>
         </Form>
       </View>

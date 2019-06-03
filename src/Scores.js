@@ -5,18 +5,54 @@ import firebase from 'firebase'
 import { Logo } from './images';
 
 export default class Scores extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      currentUser: null,
+      data: [],
+    }
+  }
+
+  componentDidMount() {
+    const { currentUser } = firebase.auth()
+
+    this.setData()
+  }
+
+  setData = () => {
+    const scoreRef = firebase.database().ref('posts');
+
+    scoreRef.on("value", childSnapshot => {
+
+      let scores = childSnapshot.val();
+
+      let newState = [];
+
+      for(let score in scores){
+        newState.push({
+          scores: scores[score].score,
+          course: scores[score].course,
+          handicap: scores[score].handicap,
+        });
+      }
+
+      this.setState({
+        data: newState
+      });
+    });
+ }
+ 
 
     render() {
     const { navigation } = this.props;
-    const score = navigation.getParam('score', 'no score');
-    const course = navigation.getParam('course', 'no course');
-    const handicap = navigation.getParam('handicap', 'no handicap');
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Your Courses</Text>
+          {this.state.data.map((item, index) => <Text key={index}>{item.course}</Text>)}
+          <Text>Your Scores</Text>
+          {this.state.data.map((item, index) => <Text key={index}>{item.scores}</Text>)}
           <Text>Your Handicaps</Text>
-          <Text>course: {JSON.stringify(course)}</Text>
-          <Text>score: {JSON.stringify(score)}</Text>
-          <Text>handicap: {JSON.stringify(handicap)}</Text>
+          {this.state.data.map((item, index) => <Text key={index}>{item.handicap}</Text>)}
           <Button
             title="Go to Home"
             onPress={() => this.props.navigation.navigate('Home')}
