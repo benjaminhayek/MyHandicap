@@ -25,6 +25,7 @@ export default class Main extends React.Component {
   }
 
   uploadScore = (course, score, handicap) => {
+    var userId = firebase.auth().currentUser.uid
     var database = firebase.database();
     firebase.database().ref('users/' + userId).set({
       course: course,
