@@ -7,42 +7,52 @@ import { Logo } from './images';
 export default class Scores extends React.Component {
   constructor(props) {
     super(props);
-  }
-  state = { 
-    currentUser: null,
-    courses: [],
-    scores: [],
-    handicaps: [],
+    this.state = { 
+      currentUser: null,
+      data: [],
+    }
   }
 
   componentDidMount() {
     const { currentUser } = firebase.auth()
 
-    this.getUserData()
+    this.setData()
   }
 
-  getUserData = () => {
-    var userId = firebase.auth().currentUser.uid;
-    return firebase.database().ref('posts').once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        var childKey = childSnapshot.key;
-        var childData = childSnapshot.val();
-        alert(childData.score)
+  setData = () => {
+    const scoreRef = firebase.database().ref('posts');
+
+    scoreRef.on("value", childSnapshot => {
+
+      let scores = childSnapshot.val();
+
+      let newState = [];
+
+      for(let score in scores){
+        newState.push({
+          scores: scores[score].score,
+          course: scores[score].course,
+          handicap: scores[score].handicap,
+        });
+      }
+
+      this.setState({
+        data: newState
       });
-    })
-  }
+    });
+ }
+ 
 
     render() {
     const { navigation } = this.props;
-    const score = navigation.getParam('score', 'no score');
-    const course = navigation.getParam('course', 'no course');
-    const handicap = navigation.getParam('handicap', 'no handicap');
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Your Courses</Text>
+          {this.state.data.map((item, index) => <Text key={index}>{item.course}</Text>)}
+          <Text>Your Scores</Text>
+          {this.state.data.map((item, index) => <Text key={index}>{item.scores}</Text>)}
           <Text>Your Handicaps</Text>
-          <Text>course: {this.state.courses}</Text>
-          <Text>score: {this.state.scores}</Text>
-          <Text>handicap: {this.state.handicaps}</Text>
+          {this.state.data.map((item, index) => <Text key={index}>{item.handicap}</Text>)}
           <Button
             title="Go to Home"
             onPress={() => this.props.navigation.navigate('Home')}
