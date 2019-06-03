@@ -23,12 +23,13 @@ export default class Scores extends React.Component {
 
   getUserData = () => {
     var userId = firebase.auth().currentUser.uid;
-    return firebase.database().ref('/posts/').orderByChild('uid').equalTo(userId).once('value').then(function(snapshot) {
-    var courses = (snapshot.val() && snapshot.val().course) || 'Anonymous';
-    var scores = (snapshot.val() && snapshot.val().score) || 'Anonymous';
-    var handicaps = (snapshot.val() && snapshot.val().handicap) || 'Anonymous';
-    alert(courses[0])
-  });
+    return firebase.database().ref('posts').once('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        alert(childData.score)
+      });
+    })
   }
 
     render() {
