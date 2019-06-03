@@ -49,7 +49,7 @@ export default class Main extends React.Component {
 
   navigateToScores = (course, score, courseRating, slope, divisor) => {
     let handicap = this.postScore(course, score, courseRating, slope, divisor)
-    this.uploadScore(handicap)
+    this.uploadScore(course, score, handicap)
     this.props.navigation.navigate('Scores', {
         handicap: handicap,
         course: course,
