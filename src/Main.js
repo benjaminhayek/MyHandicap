@@ -25,19 +25,20 @@ export default class Main extends React.Component {
   }
 
   uploadScore = (course, courseRating, handicap) => {
-    var userId = firebase.auth().currentUser.uid
-    var database = firebase.database();
-    firebase.database().ref('users/' + userId).set({
+    var postData = {
       course: course,
       score: courseRating,
       handicap: handicap,
-    }, function(error) {
-      if (error) {
-        alert(error.message)
-      } else {
-        alert('score updated')
-      }
-    });
+    };
+    var uid = firebase.auth().currentUser.uid
+    
+    var newPostKey = firebase.database().ref().child('posts').push().key;
+  
+    var updates = {};
+    updates['/posts/' + newPostKey] = postData;
+    updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+  
+    return firebase.database().ref().update(updates);
   }
 
   postScore = (course, score, courseRating, slope, divisor) => {
