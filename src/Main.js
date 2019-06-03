@@ -24,12 +24,12 @@ export default class Main extends React.Component {
     this.setState({ currentUser })
   }
 
-  uploadScore = (course, score, handicap) => {
+  uploadScore = (course, courseRating, handicap) => {
     var userId = firebase.auth().currentUser.uid
     var database = firebase.database();
     firebase.database().ref('users/' + userId).set({
       course: course,
-      score: score,
+      score: courseRating,
       handicap: handicap,
     }, function(error) {
       if (error) {
@@ -49,7 +49,7 @@ export default class Main extends React.Component {
 
   navigateToScores = (course, score, courseRating, slope, divisor) => {
     let handicap = this.postScore(course, score, courseRating, slope, divisor)
-    this.uploadScore(course, score, handicap)
+    this.uploadScore(course, courseRating, handicap)
     this.props.navigation.navigate('Scores', {
         handicap: handicap,
         course: course,
