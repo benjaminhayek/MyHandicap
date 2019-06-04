@@ -46,31 +46,31 @@ export default class Scores extends React.Component {
     render() {
     const { navigation } = this.props;
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Your Courses</Text>
-          {this.state.data.map((item, index) => <Text key={index}>{item.course}</Text>)}
-          <Text>Your Scores</Text>
-          {this.state.data.map((item, index) => <Text key={index}>{item.scores}</Text>)}
-          <Text>Your Handicaps</Text>
-          {this.state.data.map((item, index) => <Text key={index}>{item.handicap}</Text>)}
-          <Button
-            title="Go to Home"
-            onPress={() => this.props.navigation.navigate('Home')}
-          />
-          <Button
-            title="Go back"
-            onPress={() => this.props.navigation.goBack()}
-          />
+        <View style={styles.scores}>
+          <View style={{ flex: 1, paddingLeft: 10 }}>
+            <Text>Your Courses</Text>
+            {this.state.data.map((item, index) => <Text key={index}>{item.course}</Text>)}
+          </View>
+          <View style={{ flex: 1, paddingLeft: 10 }}>
+            <Text>Your Scores</Text>
+            {this.state.data.map((item, index) => <Text key={index}>{item.scores}</Text>)}
+          </View>
+          <View style={{ flex: 1, paddingLeft: 10 }}>
+            <Text>Your Handicaps</Text>
+            {this.state.data.map((item, index) => <Text key={index}>{item.handicap}</Text>)}
+          </View>
         </View>
       );
     }
   }
 
 const styles = StyleSheet.create({
-    container: {
+    scores: {
         flex: 1,
+        flexDirection: "row",
         backgroundColor: "#fff",
         justifyContent: "center",
+        alignItems: "center",
         padding: 10
       },
 })
