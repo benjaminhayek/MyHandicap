@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
 import { Container, Item, Form, Input, Button, Label } from "native-base";
 import firebase from 'firebase'
-import { Logo } from './images';
+import { Course } from './images';
 
 export default class Scores extends React.Component {
   constructor(props) {
@@ -46,31 +46,46 @@ export default class Scores extends React.Component {
     render() {
     const { navigation } = this.props;
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Your Courses</Text>
-          {this.state.data.map((item, index) => <Text key={index}>{item.course}</Text>)}
-          <Text>Your Scores</Text>
-          {this.state.data.map((item, index) => <Text key={index}>{item.scores}</Text>)}
-          <Text>Your Handicaps</Text>
-          {this.state.data.map((item, index) => <Text key={index}>{item.handicap}</Text>)}
+        <View style={{ flex: 1 }}>
+          <Image source={ Course } style={{ width: '100%', height: 400 }}/>
+          <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 150, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{ fontSize: 30, color: 'white', textAlign: 'center', }}>Scores</Text>
+          </View>
+          <View style={styles.scores}>
+            <View style={{ flex: 2 }}>
+              <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Course</Text>
+              {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.course}</Text>)}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Score</Text>
+              {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.scores}</Text>)}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Handicap</Text>
+              {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.handicap}</Text>)}
+            </View>
+          </View>
           <Button
-            title="Go to Home"
-            onPress={() => this.props.navigation.navigate('Home')}
-          />
-          <Button
-            title="Go back"
-            onPress={() => this.props.navigation.goBack()}
-          />
+            full
+            rounded
+            success
+            style={{ marginBottom: 50 }}
+            onPress={() => this.props.navigation.navigate('Main')}
+            >
+            <Text>Go Back</Text>
+          </Button>
         </View>
       );
     }
   }
 
 const styles = StyleSheet.create({
-    container: {
+    scores: {
         flex: 1,
+        flexDirection: "row",
         backgroundColor: "#fff",
         justifyContent: "center",
+        alignItems: "center",
         padding: 10
       },
 })
