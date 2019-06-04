@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, AsyncStorage, Image } from "react-native";
 import { Container, Item, Form, Input, Button, Label } from "native-base";
 import firebase from 'firebase'
-import { Logo } from './images';
+import { Course } from './images';
 
 export default class Scores extends React.Component {
   constructor(props) {
@@ -46,18 +46,21 @@ export default class Scores extends React.Component {
     render() {
     const { navigation } = this.props;
       return (
-        <View style={styles.scores}>
-          <View style={{ flex: 2 }}>
-            <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Course</Text>
-            {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.course}</Text>)}
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Score</Text>
-            {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.scores}</Text>)}
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Handicap</Text>
-            {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.handicap}</Text>)}
+        <View style={{ flex: 1 }}>
+          <Image source={ Course } style={{ width: '100%', height: 400 }}/>
+          <View style={styles.scores}>
+            <View style={{ flex: 2 }}>
+              <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Course</Text>
+              {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.course}</Text>)}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Score</Text>
+              {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.scores}</Text>)}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Handicap</Text>
+              {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.handicap}</Text>)}
+            </View>
           </View>
         </View>
       );
