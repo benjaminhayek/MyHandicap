@@ -65,6 +65,15 @@ export default class Scores extends React.Component {
               {this.state.data.map((item, index) => <Text key={index} style={{ marginBottom: 10, fontSize: 12 }}>{item.handicap}</Text>)}
             </View>
           </View>
+          <Button
+            full
+            rounded
+            success
+            style={{ marginBottom: 50 }}
+            onPress={() => this.props.navigation.navigate('Main')}
+            >
+            <Text>Go Back</Text>
+          </Button>
         </View>
       );
     }
