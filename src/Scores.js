@@ -48,7 +48,9 @@ export default class Scores extends React.Component {
       return (
         <View style={{ flex: 1 }}>
           <Image source={ Course } style={{ width: '100%', height: 400 }}/>
-          <Text style={{ marginBottom: 20, fontSize: 30, color: 'green', textAlign: 'center', marginTop: 15 }}>Scores</Text>
+          <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 150, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{ fontSize: 30, color: 'white', textAlign: 'center', }}>Scores</Text>
+          </View>
           <View style={styles.scores}>
             <View style={{ flex: 2 }}>
               <Text style={{ marginBottom: 20, fontSize: 15, color: 'green' }}>Course</Text>
