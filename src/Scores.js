@@ -48,15 +48,15 @@ export default class Scores extends React.Component {
       return (
         <View style={styles.scores}>
           <View style={{ flex: 1, paddingLeft: 10 }}>
-            <Text>Your Courses</Text>
+            <Text style={{ padding: 10, fontSize: 12, color: 'green' }}>Course</Text>
             {this.state.data.map((item, index) => <Text key={index}>{item.course}</Text>)}
           </View>
           <View style={{ flex: 1, paddingLeft: 10 }}>
-            <Text>Your Scores</Text>
+            <Text style={{ padding: 10, fontSize: 12, color: 'green' }}>Score</Text>
             {this.state.data.map((item, index) => <Text key={index}>{item.scores}</Text>)}
           </View>
           <View style={{ flex: 1, paddingLeft: 10 }}>
-            <Text>Your Handicaps</Text>
+            <Text style={{ padding: 10, fontSize: 12, color: 'green' }}>Handicap</Text>
             {this.state.data.map((item, index) => <Text key={index}>{item.handicap}</Text>)}
           </View>
         </View>
